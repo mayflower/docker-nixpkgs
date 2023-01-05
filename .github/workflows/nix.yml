@@ -8,6 +8,9 @@ on:
   schedule:
     # Run once per day
     - cron: '0 0 * * *'
+env:
+  CI_REGISTRY: ghcr.io
+  CI_PROJECT_PATH: ${{ github.repository }}
 jobs:
   build:
     strategy:
@@ -16,13 +19,17 @@ jobs:
       matrix:
         channel:
           - nixos-unstable
-          - nixos-22.05
           - nixos-22.11
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.CI_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - run: nix-shell --run ./ci.sh
         env:
-          CI_REGISTRY_AUTH: '${{ secrets.REGISTRY_AUTH }}'
           NIXPKGS_CHANNEL: '${{ matrix.channel }}'
