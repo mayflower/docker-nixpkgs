@@ -11,10 +11,14 @@
 , openssh
 , xz
 , extraContents ? [ ]
+, extraCommands ? ""
+, uid ? 0
+, user ? "root"
 }:
 let
   image = dockerTools.buildImageWithNixDb {
     inherit (nix) name;
+    inherit uid;
 
     contents = [
       ./root
@@ -45,7 +49,7 @@ let
 
       # need a HOME
       mkdir -vp root
-    '';
+    '' + extraCommands;
 
     config = {
       Cmd = [ "/bin/bash" ];
@@ -57,7 +61,7 @@ let
         "PAGER=cat"
         "PATH=/usr/bin:/bin"
         "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
-        "USER=root"
+        "USER=${user}"
       ];
     };
   };
