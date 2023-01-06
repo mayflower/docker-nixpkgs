@@ -1,4 +1,5 @@
 let
   pkgs = import ./pkgs.nix;
-in
-pkgs.docker-nixpkgs
+in {
+  inherit (pkgs.docker-nixpkgs) nix-flakes nix-user;
+}
