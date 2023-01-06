@@ -20,13 +20,13 @@ docker-nixpkgs.nix.override {
       mkdir -p $out/etc
       cp ${../nix/root/etc/passwd} $out/etc/passwd
       chmod +w $out/etc/passwd
-      echo argo:x:999:0:argo:/home/argo:/bin/bash >> $out/etc/passwd
+      echo alice:x:999:0:alice:/home/alice:/bin/bash >> $out/etc/passwd
     '')
   ];
   extraCommands = ''
-    mkdir -vp home/argo
+    mkdir -vp home/alice
   '';
 
   uid = 999;
-  user = "argo";
+  user = "alice";
 }
