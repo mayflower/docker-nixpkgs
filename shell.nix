@@ -1,5 +1,5 @@
 let
-  nixpkgs = builtins.fetchTarball "channel:nixos-22.05";
+  nixpkgs = builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz";
   pkgs = import nixpkgs { config = { }; overlays = [ ]; };
 in
 with pkgs;

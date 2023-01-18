@@ -15,7 +15,7 @@ else
   image_tag=$channel
 fi
 
-export NIX_PATH=channel:$channel
+export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/$channel.tar.gz
 
 banner() {
   echo "========================================================"
