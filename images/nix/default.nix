@@ -4,6 +4,7 @@
 , coreutils
 , curl
 , gitReallyMinimal
+, gnugrep
 , gnutar
 , gzip
 , iana-etc
@@ -30,6 +31,7 @@ let
       # runtime dependencies of nix
       cacert
       gitReallyMinimal
+      gnugrep
       gnutar
       gzip
       openssh
